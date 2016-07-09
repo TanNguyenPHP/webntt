@@ -1,0 +1,60 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php echo $this->getContent(); ?>
+<?php
+echo $this->tag->form(
+    array(
+        "/backend/users/save",
+        "autocomplete" => "off",
+        "class" => "form-horizontal"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Thông tin tài khoản</h2>
+</section>
+<section class="content">
+    <div class='arrage-popup'>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Title">Tên tài khoản</label>
+            <div class="col-md-6">
+                <input class="form-control" id="username" name="username" type="text" readonly="true"
+                       value="<?php echo $user->username ?>"/>
+                <input type="hidden" id="id" name="id" value="<?php echo $user->id ?>>"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Fullname">Tên người dùng</label>
+            <div class="col-md-6">
+                <input class="form-control" id="name" name="name" maxlength="64" type="text"
+                       value="<?php echo $user->name ?>"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Show">Kích hoạt tài khoản</label>
+            <div class="col-md-6">
+                <?php
+                if ($user->is_active == '1')
+                    echo $this->tag->checkField(array("is_active", "class" => "check-box", "value" => "1", "checked" => "checked"));
+                else
+                    echo $this->tag->checkField(array("is_active", "class" => "check-box", "value" => "0"));
+                ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Email">Email</label>
+            <div class="col-md-6">
+                <input class="form-control" id="email" maxlenght="64" name="email" type="text" value=""/>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu Lại" class="btn btn-info"/>
+            <a href="/webdinhdalat/backend/users/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>

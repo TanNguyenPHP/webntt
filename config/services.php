@@ -27,7 +27,36 @@ $di->setShared('router', function () {
 
     $router->setDefaultModule('frontend');
     $router->setDefaultNamespace('Corephalcon\Frontend\Controllers');
-
+    $router->add(
+        '/quanly',
+        array(
+            'module' => 'backend',
+            'namespace' => 'Corephalcon\Backend\Controllers',
+            'controller' => 'login',
+            'action' => 'index'
+        )
+    );
+/*
+    $router->add(
+        '/news/:params',
+        array(
+            'module' => 'frontend',
+            'namespace' => 'Corephalcon\Frontend\Controllers',
+            'controller' => 'news',
+            'action' => 'index',
+            'params' => 1
+        )
+    );
+    $router->add(
+        '/news/detail/:params',
+        array(
+            'module' => 'frontend',
+            'namespace' => 'Corephalcon\Frontend\Controllers',
+            'controller' => 'news',
+            'action' => 'detail',
+            'params' => 1
+        )
+    );*/
     return $router;
 });
 
@@ -103,17 +132,17 @@ $di->setShared('session', function () {
  */
 $di->set('flash', function () {
     return new Flash(array(
-        'error'   => 'alert alert-danger',
+        'error' => 'alert alert-danger',
         'success' => 'alert alert-success',
-        'notice'  => 'alert alert-info',
+        'notice' => 'alert alert-info',
         'warning' => 'alert alert-warning'
     ));
 });
 
 /**
-* Set the default namespace for dispatcher
-*/
-$di->setShared('dispatcher', function() use ($di) {
+ * Set the default namespace for dispatcher
+ */
+$di->setShared('dispatcher', function () use ($di) {
     $dispatcher = new Phalcon\Mvc\Dispatcher();
     $dispatcher->setDefaultNamespace('Corephalcon\Frontend\Controllers');
     return $dispatcher;

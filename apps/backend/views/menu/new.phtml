@@ -1,0 +1,111 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "create",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "id" => "createMenu"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Tạo mới menu</h2>
+    <div class="validation-summary-valid" data-valmsg-summary="true">
+        <ul>
+            <li style="display:none"></li>
+        </ul>
+    </div>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Name">Tên menu</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("name", "size" => 30, "class" => "form-control", "id" => "fieldName", "minlength" => "4", "maxlength" => "32")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="cat">Chọn ngôn ngữ</label>
+            <div class="col-md-6">
+                <select class="form-control" id="lang" name="lang">
+                    <?php foreach ($data["langs"] as $items): ?>
+                        <?php echo "<option value=\"$items->id\">$items->lang</option>" ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Loại trang</label>
+            <div class="col-md-6">
+                <select class="form-control" id="pagetype" name="pagetype">
+                    <?php foreach ($data['pagetype'] as $items): ?>
+                        <?php echo "<option value=\"$items->type\">$items->name</option>" ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Danh mục</label>
+            <div class="col-md-6">
+                <select class="form-control" id="cat" name="cat">
+                    <?php foreach ($data['cats'] as $items): ?>
+                        <?php echo "<option value=\"$items->slug\">$items->name</option>" ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="position">Thứ tự hiển thị</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("position", "size" => 30, "class" => "form-control", "id" => "fieldposition", "maxlength" => "3", "value" => "0")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="title">Title</label>
+            <div class="col-md-6">
+                <input class="form-control valid" id="title" maxlength="32" name="title" type="text" value="">
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="meta_description">Meta description</label>
+            <div class="col-md-6">
+                    <textarea class="form-control" cols="20" id="meta_description" maxlength="128" name="meta_description"
+                              rows="2"></textarea>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" class="btn btn-info"/>
+            <a href="/backend/menu/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#createMenu").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 4
+                },
+                position:{
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Nhập tên",
+                    minlength: "Lớn hơn 4 ký tự"
+                },
+                position:{
+                    required: "Nhập số",
+                    number: "Không nhập chữ"
+                }
+            }
+        });
+    });
+</script>

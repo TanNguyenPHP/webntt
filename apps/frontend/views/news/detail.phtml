@@ -1,0 +1,51 @@
+<?php echo $this->getContent() ?>
+<!-- SUBHEADER
+================================================== -->
+<div id="subheader">
+    <div class="row">
+        <div class="eight columns">
+            <p class="bread leftalign">
+                <?php echo $data['cat']->name; ?>
+            </p>
+        </div>
+        <div class="four columns">
+            <div class="row collapse">
+                <div class="ten mobile-three columns">
+                    <input type="text" class="nomargin" placeholder="Search...">
+                </div>
+                <div class="two mobile-one columns">
+                    <a href="#" class="postfix button expand">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hr">
+</div>
+<!-- CONTENT
+================================================== -->
+<div class="row">
+    <div class="twelve columns noleftmargin">
+        <!-- MAIN CONTENT -->
+        <div class="eight columns noleftmargin">
+                <div class="sectiontitle">
+                    <h4><?php echo $data['news']->title; ?><span class="comments"></span></h4>
+                </div>
+                <p>
+                    <?php echo $data['news']->content; ?>
+                </p>
+        </div>
+        <!-- SIDEBAR -->
+        <div class="four columns">
+            <br class="clear"/>
+            <h6 class="sidebartitle">Danh mục</h6>
+            <?php foreach ($data['cats'] as $item): ?>
+                <a href="\news\<?php echo $item->id; ?>" class="tags"><?php echo $item->name; ?></a>
+            <?php endforeach; ?>
+            <br class="clear"/>
+            <br/><br/>
+        </div>
+    </div>
+</div>
+<div class="hr">
+</div>

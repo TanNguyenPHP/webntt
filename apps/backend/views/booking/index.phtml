@@ -1,0 +1,103 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "bookform",
+        "method" => "get"
+    )
+);
+?>
+    <section class="content-header">
+        <h2>
+            Danh sách liên hệ
+        </h2>
+    </section>
+    <section class="content">
+        <div class="sidebar-form">
+            <div>
+                <div class="form-group col-sm-3">
+                    <div class="input-group">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Tìm khách hàng"
+                               value="<?php echo $data['name'] ?>">
+                        <span class="input-group-btn">
+                            <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <div class="input-group">
+                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Tìm số điện thoại"
+                               value="<?php echo $data['phone'] ?>">
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Hiển thị</span>
+                        <select class="form-control" name="limit" id="limit" onchange = "bookform.submit()">
+                            <?php for ($i=0; $i <= 50;$i = $i + 10){
+                                if($i == $data['limit'] )
+                                    echo "<option value=\"$i\" selected>$i</option>";
+                                else
+                                    echo "<option value=\"$i\">$i</option>";
+                            }?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr style="background-color: #3c8dbc; color:#fff">
+                    <th>Khách hàng</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Nội dung</th>
+                    <th>Ngày gửi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($data['data']->items as $item): ?>
+                    <tr>
+                        <th scope="row" style="text-align:left">
+                            <a href="#"><?php echo $item->name ?></a>
+                        </th>
+                        <td style="text-align:left">
+                            <?php echo $item->phone ?>
+                        </td>
+                        <td style="text-align:left">
+                            <?php echo $item->email ?>
+                        </td>
+                        <td style="text-align:left">
+                            <?php echo $item->content ?>
+                        </td>
+                        <td style="text-align:left">
+                            <?php
+                            if ($item->datecreate != '')
+                                echo DateTime::createFromFormat('YmdHis', $item->datecreate)->format('d/m/Y');
+                            ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            <nav style="text-align:right">
+                <ul class="pagination">
+                    <li><?php echo $this->tag->linkTo("backend/booking/index", "First") ?></li>
+                    <li><?php echo $this->tag->linkTo("backend/booking/index?page=" . $data['data']->before, "Previous") ?></li>
+                    <li><?php echo $this->tag->linkTo("backend/booking/index?page=" . $data['data']->next, "Next") ?></li>
+                    <li><?php echo $this->tag->linkTo("backend/booking/index?page=" . $data['data']->last, "Last") ?></li>
+                </ul>
+            </nav>
+        </div>
+    </section><!-- /.content -->
+<?php echo $this->tag->endForm(); ?>

@@ -1,0 +1,72 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php echo $this->getContent(); ?>
+<?php
+echo $this->tag->form(
+    array(
+        "/backend/language/save",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name"=>"editLang"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Sửa ngôn ngữ</h2>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Lang">Ngôn ngữ</label>
+            <div class="col-md-6">
+                <input class="form-control" id="lang" name="lang" type="text" value="<?php echo $data->lang ?>"/>
+                <input type="hidden" id="id" name="id" value="<?php echo $data->id ?>>"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Mã ngôn ngữ</label>
+            <div class="col-md-6">
+                <input class="form-control" id="code" name="code" type="text" value="<?php echo $data->code ?>"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Show">Mở/Đóng</label>
+            <div class="col-md-6">
+                <?php
+                if ($data->is_status == '1')
+                    echo $this->tag->checkField(array("is_status", "class" => "check-box", "value" => "1", "checked" => "checked"));
+                else
+                    echo $this->tag->checkField(array("is_status", "class" => "check-box", "value" => "0"));
+                ?>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" class="btn btn-info"/>
+            <a href="/webdinhdalat/backend/language/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#editLang").validate({
+            rules: {
+                lang: {
+                    required: true,
+                    minlength: 4
+                }
+            },
+            messages: {
+                lang: {
+                    required: "Nhập ngôn ngữ",
+                    minlength: "Lớn hơn 4 ký tự"
+                }
+            }
+        });
+    });
+</script>

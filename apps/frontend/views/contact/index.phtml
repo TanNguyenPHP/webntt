@@ -1,0 +1,131 @@
+<div id="subheader">
+    <div class="row">
+        <div class="twelve columns">
+            <p class="left">
+                LIÊN HỆ
+            </p>
+            <p class="right">
+            </p>
+        </div>
+    </div>
+</div>
+<div class="hr">
+</div>
+<!-- CONTENT
+================================================== -->
+<div class="row">
+    <!-- CONTACT FORM -->
+    <div class="twelve columns">
+        <div class="wrapcontact">
+            <div class="done">
+                <div class="alert-box success">
+                    Message has been sent! <a href="" class="close">x</a>
+                </div>
+            </div>
+            <form method="post" action="send" id="contactform" name="contactform">
+                <div class="form">
+                    <div class="six columns noleftmargin">
+                        <label>Tên của bạn</label>
+                        <input type="text" name="name" class="smoothborder" placeholder="Tên của bạn *"/>
+                    </div>
+                    <div class="six columns">
+                        <label>E-mail</label>
+                        <input type="text" name="email" class="smoothborder" placeholder="Email của bạn *"/>
+                    </div>
+                    <label>Nội dung</label>
+                    <textarea name="comment" class="smoothborder ctextarea" rows="14"
+                              placeholder="Nội dung... *"></textarea>
+                    <div class="g-recaptcha" data-callback="onReturnCallback"
+                         data-sitekey="6LfUDiQTAAAAAEKcqQDR2-Ny0DMD7aENamgI-SaH"></div>
+                    <input type="submit" id="submit" class="readmore" value="Gửi">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="hr">
+</div>
+<script src="https://www.google.com/recaptcha/api.js?hl=vi" async defer>
+</script>
+<script defer>
+    $('input[type="submit"]').prop("disabled", true);
+    var checkcaptcha = true;
+    var ip = '<?php echo $_SERVER['REMOTE_ADDR']; ?>';
+    var onReturnCallback = function (response) {
+        //alert('g-recaptcha-response: ' + grecaptcha.getResponse());
+        var url = 'https://www.google.com/recaptcha/api/siteverify';
+        var params = {'secret': '6LfUDiQTAAAAABX8Gtmluv9hvE7QhVwubX_ahye1', 'response': response, 'remoteip': ip};
+        $.ajax({
+            url: '/frontend/contact/checkcaptcha',
+            type: 'POST',
+            data: params,
+            dataType: 'json',
+            success: function (data) {
+                var res = data.success;
+                if (res == true) {
+                    $('input:submit').attr('disabled', false);
+                }
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log(msg);
+            }
+        });
+    };
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#contactform").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 4
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                comment: {
+                    required: true,
+                    minlength: 4
+                },
+                captcha: {
+                    required: true
+                }
+
+            },
+            messages: {
+                name: {
+                    required: "Nhập tên",
+                    minlength: "Lớn hơn 4 ký tự"
+                },
+                email: {
+                    required: "Nhập email",
+                    email: "Không đúng định dạng email"
+                },
+                comment: {
+                    required: "Nhập tên",
+                    minlength: "Nội dung quá ngắn"
+                },
+                captcha: {
+                    required: "Nhập captcha"
+                }
+            }
+        });
+    });
+</script>

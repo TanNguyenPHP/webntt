@@ -1,0 +1,35 @@
+.colorme {color:#1a75ff;}
+.nav-bar > li:hover, .nav-bar > li a:hover  { color: #1a75ff;}
+.nav-bar > li.active > a { }
+ul.flyout li a:hover, .nav-bar li ul li a:hover {color:#1a75ff;}
+.flyout {border-top:2px solid #1a75ff;}
+.sectiontitle {border-left: 4px solid #1a75ff;}
+::-moz-selection{background:#1a75ff;color:#fff;}
+::selection{background:#1a75ff;color:#fff;}
+.ca-menu li:hover .ca-main {color: #1a75ff;}
+.topborder { border-top:4px solid #1a75ff;}
+.readmore {background:#1a75ff;}
+ #subheader {background: #1a75ff;border-top: 1px solid #1a75ff; color: #fff;}
+ #subheader a {color: #eee;}
+ #subheader a:hover {color: #fff;}
+ .readmore {background:#1a75ff;}
+ #testimonials blockquote cite {color:#1a75ff;}
+ .tags {background:#1a75ff;}
+ ul.pagination li.current a {background: #1a75ff;}
+.saymore {color:#1a75ff;}
+.submit {background:#1a75ff;} 
+dl.tabs dd.active { border-bottom: 3px solid #1a75ff;}
+ul.accordion > li.active {border-top: 3px solid #1a75ff;}
+div.alert-box.default { background-color: #1a75ff;}
+.slide {	margin: 0;	padding: 0;	border-top: solid 4px #1a75ff;}
+.btn-slide {	background:#1a75ff url(../../images/plus.png) no-repeat;}
+.btn-slide.active { background: #1a75ff url(../../images/minus.png) no-repeat;}
+#footer {border-top:#1a75ff 4px solid;}
+.back-top a:hover{background-color: #1a75ff;}
+.sf-shadow ul {border-top:2px solid #1a75ff;}
+.panel {border-left:4px solid #1a75ff;}
+.colorbackground {background:#1a75ff;}
+a.projectdetail { background: #1a75ff;opacity:0.8;}
+a.projectdetail:hover { background: #1a75ff;opacity:1.0;}
+#testimonials {border-left: solid 6px #1a75ff;}
+.ei-title h2{background:#1a75ff;} 

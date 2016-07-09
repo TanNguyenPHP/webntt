@@ -1,0 +1,91 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "menuform",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Danh sách menu
+    </h2>
+    <div class="arrange-button">
+        <a href="new" class="btn btn-info" id="modaltrigger" rel="leanModal">Thêm mới</a>
+    </div>
+</section>
+<section class="content">
+    <div class="sidebar-form">
+        <div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Ngôn ngũ</span>
+                    <select class="form-control" name="lang" id="lang" onchange="menuform.submit()">
+                        <option value="" selected>Chọn ngôn ngữ</option>
+                        <?php foreach ($data["langs"] as $items): ?>
+                            <?php echo "<option value=\"$items->id\">$items->lang</option>" ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr style="background-color: #3c8dbc; color:#fff">
+                <th>Tên</th>
+                <th>Vị trí</th>
+                <th>Tình trạng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data['menus'] as $item): ?>
+                <tr>
+                    <th scope="row" style="text-align:left">
+                        <a href="edit/<?php echo $item->id ?>"><?php echo $item->name ?></a>
+                    </th>
+                    <td style="text-align:left">
+                        <?php echo $item->position ?>
+                    </td>
+                    <td style="text-align:left">
+                        <?php if ($item->is_active == '1')
+                            echo "<a id=\"is_active\" class=\"btn-active\" data-active=\"$item->id\" href=\"#\">Mở</a>";
+                        else
+                            echo "<a id=\"is_active\" class=\"btn-active\" data-active=\"$item->id\" href=\"#\">Đóng</a>";
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section><!-- /.content -->
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $(document).ready(function () {
+        $('.btn-active').off('click').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            var id = link.data('active');
+            $.ajax({
+                url: '/backend/menu/editstatus',
+                type: 'POST',
+                data: {id: id},
+                dataType: 'text',
+                success: function (result) {
+                    link.text(result);
+                }
+            });
+        });
+    });
+</script>

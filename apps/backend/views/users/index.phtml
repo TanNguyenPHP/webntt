@@ -1,0 +1,87 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "backend/users/index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "userform",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Danh sách user
+    </h2>
+    <div class="arrange-button">
+        <a href="new" class="btn btn-info" id="modaltrigger" rel="leanModal">Thêm mới</a>
+    </div>
+</section>
+<section class="content">
+    <div class="sidebar-form">
+        <div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <input type="text" name="filter" id="filter" class="form-control" placeholder="Tìm users...">
+                    <span class="input-group-btn">
+                        <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr style="background-color: #3c8dbc; color:#fff">
+                <th>Tài khoản</th>
+                <th>Tên người dùng</th>
+                <th>Tình trạng</th>
+                <th>Ngày tạo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($dataUsers->items as $user): ?>
+                <tr>
+                    <th scope="row" style="text-align:left">
+                        <a href="edit/<?php echo $user->id ?>"><?php echo $user->username ?></a>
+                    </th>
+                    <td style="text-align:left">
+                        <?php echo $user->name ?>
+                    </td>
+                    <td>
+                        <?php if ($user->is_active == '1')
+                            echo 'Đã kích hoạt';
+                        else
+                            echo 'Tài khoản đã khóa';
+                        ?>
+                    </td>
+                    <td align="center">
+                        <?php
+                        $_datetime = $user->datecreate;
+                        if ($_datetime != '')
+                            echo DateTime::createFromFormat('YmdHis', $_datetime)->format('d/m/Y');
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <nav style="text-align:right">
+            <ul class="pagination">
+                <li><?php echo $this->tag->linkTo("backend/users/index", "First") ?></li>
+                <li><?php echo $this->tag->linkTo("backend/users/index?page=" . $dataUsers->before, "Previous") ?></li>
+                <li><?php echo $this->tag->linkTo("backend/users/index?page=" . $dataUsers->next, "Next") ?></li>
+                <li><?php echo $this->tag->linkTo("backend/users/index?page=" . $dataUsers->last, "Last") ?></li>
+            </ul>
+        </nav>
+    </div>
+</section><!-- /.content -->
+<?php echo $this->tag->endForm(); ?>

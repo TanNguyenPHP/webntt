@@ -14,6 +14,6 @@ return new \Phalcon\Config(array(
         'modelsDir'      => __DIR__ . '/../models/',
         'migrationsDir'  => __DIR__ . '/../migrations/',
         'viewsDir'       => __DIR__ . '/../views/',
-        'baseUri'        => '/corephalcon/'
+        'baseUri'        => ''
     )
 ));

@@ -1,0 +1,124 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "/backend/menu/save",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "id" => "createMenu"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Chỉnh sửa</h2>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Name">Tên menu</label>
+            <div class="col-md-6">
+                <input type="text" id="fieldName" name="name" class="form-control" size="30" minlength="4" maxlength="32" value="<?php echo $data['menu']->name ?>">
+                <input type="hidden" id="id" name="id" value="<?php echo $data['menu']->id ?>>"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="cat">Chọn ngôn ngữ</label>
+            <div class="col-md-6">
+                <select class="form-control" id="lang" name="lang">
+                    <?php foreach ($data["langs"] as $items): ?>
+                        <?php
+                        if ($items->id == $data['menu']->id_lang)
+                            echo "<option value=\"$items->id\" selected>$items->lang</option>";
+                        else
+                            echo "<option value=\"$items->id\">$items->lang</option>";
+                        ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <?php if($data['menu']->is_static == '0' ) : ?>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Loại trang</label>
+            <div class="col-md-6">
+                <select class="form-control" id="pagetype" name="pagetype">
+                    <?php foreach ($data['pagetype'] as $items): ?>
+                        <?php
+                        if ($items->type == $data['menu']->url)
+                            echo "<option value=\"$items->type\" selected>$items->name</option>";
+                        else
+                            echo "<option value=\"$items->type\">$items->name</option>";
+                        ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Danh mục</label>
+            <div class="col-md-6">
+                <select class="form-control" id="cat" name="cat">
+                    <?php foreach ($data['cats'] as $items): ?>
+                        <?php
+                        if ($items->slug == $data['menu']->slug_category)
+                            echo "<option value=\"$items->slug\" selected>$items->name</option>";
+                        else
+                            echo "<option value=\"$items->slug\">$items->name</option>";
+                        ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="position">Thứ tự hiển thị</label>
+            <div class="col-md-6">
+                <input type="text" id="fieldposition" name="position" class="form-control" size="30" maxlength="3" value="<?php echo $data['menu']->position ?>">
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="title">Title</label>
+            <div class="col-md-6">
+                <input class="form-control valid" id="title" maxlength="32" name="title" type="text" value="<?php echo $data['menu']->title ?>">
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="meta_description">Meta description</label>
+            <div class="col-md-6">
+                    <textarea class="form-control" cols="20" id="meta_description" maxlength="128" name="meta_description"
+                              rows="2"><?php echo $data['menu']->meta_description ?></textarea>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" class="btn btn-info"/>
+            <a href="/backend/menu/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#createMenu").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 4
+                },
+                position:{
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Nhập tên",
+                    minlength: "Lớn hơn 4 ký tự"
+                },
+                position:{
+                    required: "Nhập số",
+                    number: "Không nhập chữ"
+                }
+            }
+        });
+    });
+</script>

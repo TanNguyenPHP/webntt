@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quản lý web</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="../../css/backend/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../css/backend/font-awesome.min.css" rel="stylesheet"/>
+    <link href="../../css/backend/modalStyles.css" rel="stylesheet"/>
+    <link href="../../css/backend/AdminLTE.min.css" rel="stylesheet"/>
+    <link href="../../css/backend/skin-blue.min.css" rel="stylesheet"/>
+    <link href="../../css/backend/alertify.css" rel="stylesheet"/>
+    <link href="../../css/backend/semantic.min.css" rel="stylesheet"/>
+
+    <style>
+        body {
+            background: url(/img/backend/bg.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+<div class="login-wrapper">
+    <h1><span class="txt-style">Quản lý hệ thống website</span></h1>
+    <div class="login">
+        <section id="loginForm">
+            <h2>Tài Khoản Nội Bộ</h2>
+            <?php $this->flashSession->output() ?>
+            <div class="login-form">
+                <form action="/backend/login/login" class="form-horizontal" method="post" role="form"><input
+                        name="__RequestVerificationToken" type="hidden"
+                        value="0rRTCQQG9-1Uf4vDpwNzU3xHx8gn78mz995VsFPuYfmGDNKspKvl2skfaGlE_V0H4qPGl-JZB0RFOjjVKI9xvqvzrVlNVIwnl59PFmn04Tg1"/>
+                    <label for="UserName">
+                        <input class="form-control" data-val="true" data-val-required="The Tài khoản field is required."
+                               id="UserName" name="UserName" type="text" value=""/>
+                        <span class="field-validation-valid" data-valmsg-for="UserName"
+                              data-valmsg-replace="true"></span>
+                        <span class="fa fa-user"></span>
+                    </label>
+                    <label for="Password">
+                        <input class="form-control" data-val="true" data-val-required="The Mật khẩu field is required."
+                               id="Password" name="Password" type="password" value=""/>
+                        <span class="field-validation-valid" data-valmsg-for="Password"
+                              data-valmsg-replace="true"></span>
+                        <span class="fa fa-lock"></span>
+                    </label>
+                    <div>
+                        <input type="submit" value="Đăng Nhập" class="btn btn-info" style="width: 80%; color:#fff">
+                    </div>
+                    <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>"
+                           value="<?php echo $this->security->getToken() ?>"/>
+                </form>
+                <h3>
+
+                </h3>
+
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

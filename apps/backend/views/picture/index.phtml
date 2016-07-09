@@ -1,0 +1,138 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "picform",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Thư viện hình
+    </h2>
+    <div class="arrange-button">
+        <a href="new" class="btn btn-info" id="modaltrigger" rel="leanModal">Thêm mới</a>
+        <a href="/backend/album/index" class="btn btn-info" id="modaltrigger" rel="leanModal">Quản lý thư viện hình</a>
+    </div>
+</section>
+<section class="content">
+    <div class="sidebar-form">
+        <div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Album</span>
+                    <select class="form-control" id="album" name="album" onchange="picform.submit()">
+                        <option value="">Tất cả</option>
+                        <?php foreach ($data["albums"] as $items): ?>
+                            <?php if ($items->id == $data['album'])
+                                echo "<option value=\"$items->id\" selected>$items->name</option>";
+                            else
+                                echo "<option value=\"$items->id\">$items->name</option>";
+                            ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Hiển thị</span>
+                    <select class="form-control" name="limit" id="limit" onchange="picform.submit()">
+                        <?php for ($i = 0; $i <= 50; $i = $i + 10) {
+                            if ($i == $data['limit'])
+                                echo "<option value=\"$i\" selected>$i</option>";
+                            else
+                                echo "<option value=\"$i\">$i</option>";
+                        } ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr style="background-color: #3c8dbc; color:#fff">
+                <th>Hình</th>
+                <th>Album</th>
+                <th>Đường dẫn</th>
+                <th>Hiển thị</th>
+                <th>Xóa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php for ($i = 0; $i < count($data['pictures']->items); $i++) { ?>
+                <tr>
+                    <th scope="row" style="text-align:left">
+                        <img src="<?php echo '\\' . $data['pictures']->items[$i]->dir; ?>" class="img-rounded"
+                             alt="Cinque Terre" width="200" height="200">
+                    </th>
+                    <td style="text-align:left">
+                        <?php for ($j = 0; $j < count($data['albums']); $j++) { ?>
+                            <?php if ($data['pictures']->items[$i]->id_album == $data['albums'][$j]->id) {
+                                echo $data['albums'][$j]->name;
+                            } ?>
+                        <?php } ?>
+                    </td>
+                    <td style="text-align:center"  >
+                        <input  type="text" style="width:400px" id="fielddir" name="dir" readonly="true"
+                               value="<?php echo "http://" . str_replace("\\", "/", $_SERVER['SERVER_NAME'] . "\\" . $data['pictures']->items[$i]->dir); ?>">
+                    </td>
+                    <td align="center">
+                        <?php if ($data['pictures']->items[$i]->is_show == '1')
+                            echo '<input class="check-box" disabled="disabled" type="checkbox" checked>';
+                        else
+                            echo '<input class="check-box" disabled="disabled" type="checkbox">';
+                        ?>
+                    </td>
+                    <td align="center">
+                        <a class="delete-btn add-button-disable" href="#" disabled="disabled"
+                           onclick="FunctionDel('<?php echo $data['pictures']->items[$i]->id ?>');"><i
+                                class="fa fa-times" id="icon-<?php echo $data['pictures']->items[$i]->id ?>"></i></a>
+                    </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+        <nav style="text-align:right">
+            <ul class="pagination">
+                <li><?php echo $this->tag->linkTo("/backend/picture/index", "First") ?></li>
+                <li><?php echo $this->tag->linkTo("/backend/picture/index?page=" . $data['pictures']->before, "Previous") ?></li>
+                <li><?php echo $this->tag->linkTo("/backend/picture/index?page=" . $data['pictures']->next, "Next") ?></li>
+                <li><?php echo $this->tag->linkTo("/backend/picture/index?page=" . $data['pictures']->last, "Last") ?></li>
+            </ul>
+        </nav>
+    </div>
+</section><!-- /.content -->
+<?php echo $this->tag->endForm(); ?>
+<script>
+    var is_loading = false;
+    function FunctionDel(id) {
+        var a = alertify.confirm('Xóa ảnh này?', function (e) {
+            if (e) {
+                if (is_loading == false) {
+                    is_loading = true;
+                    var icon = '#icon-' + id;
+                    $.ajax({
+                        url: '/backend/picture/del',
+                        type: 'POST',
+                        data: {id: id},
+                        dataType: 'text',
+                        success: function (result) {
+                            $(icon).attr("class", result);
+                            is_loading=false;
+                        }
+                    });
+                }
+            }
+        }).set('title', 'Thông Báo').show();
+    }
+</script>

@@ -1,7 +1,111 @@
-<div class="page-header">
-    <h1>Congratulations!</h1>
+<?php echo $this->getContent() ?>
+<div id="ei-slider" class="ei-slider">
+    <ul class="ei-slider-large">
+        <?php foreach ($data as $item) : ?>
+            <li>
+            <img src="\<?php echo $item->dir ?>" alt="imagentt" class="responsiveslide">
+            <div class="ei-title">
+                <h2>Dare to</h2>
+                <h3>Dream</h3>
+            </div>
+        <?php endforeach; ?>
+    </ul>
+    <!-- slider-thumbs -->
+    <ul class="ei-slider-thumbs">
+        <li class="ei-slider-element">Current</li>
+        <?php foreach ($data as $item) : ?>
+            <li><a href="#">Slide 1</a><img src="\<?php echo $item->dir ?>" class="slideshowthumb" alt="thumb01"/></li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<div class="minipause">
+</div>
+<!-- SUBHEADER
+================================================== -->
+<div id="subheader">
+
+</div>
+<!-- ANIMATED COLUMNS
+================================================== -->
+<div class="row">
+    <div class="twelve columns">
+        <ul class="ca-menu">
+            <li>
+                <a href="#">
+                    <span class="ca-icon"><i class="fa fa-heart"></i></span>
+                    <div class="ca-content">
+                        <h3 class="ca-sub">Nhóm nghiên cứu khoa học</h3>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="ca-icon"><i class="fa fa-bullhorn"></i></span>
+                    <div class="ca-content">
+                        <h3 class="ca-sub">Nhóm nghiên cứu tiềm năng</h3>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="ca-icon"><i class="fa fa-user"></i></span>
+                    <div class="ca-content">
+                        <h3 class="ca-sub">Hỗ trợ công bố quốc tế</h3>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="ca-icon"><i class="fa fa-camera"></i></span>
+                    <div class="ca-content">
+                        <h3 class="ca-sub">CLB Nhà Khoa Học Trẻ</h3>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- CONTENT
+================================================== -->
+<div class="row">
+    <div class="twelve columns">
+        <div class="centersectiontitle">
+            <h4>Thông tin</h4>
+        </div>
+    </div>
+    <div class="four columns">
+        <h5>Thông báo</h5>
+        <p>
+            Thông báo của khoa.
+        </p>
+        <p>
+            <a href="#" class="readmore">Xem</a>
+        </p>
+    </div>
+    <div class="four columns">
+        <h5>Tin tức - Sự kiện</h5>
+        <p>
+            Tin tức mới nhất
+        </p>
+        <p>
+            <a href="#" class="readmore">Xem</a>
+        </p>
+    </div>
+    <div class="four columns">
+        <h5>Hội thảo chuyên đề</h5>
+        <p>
+            Chuyên đề
+        </p>
+        <p>
+            <a href="#" class="readmore">Xem</a>
+        </p>
+    </div>
+</div>
+<div class="hr">
+</div>
+<!-- TESTIMONIALS
+================================================== -->
+<div class="row">
+
 </div>
 
-<p>You're now flying with Phalcon. Great things are about to happen!</p>
-
-<p>This page is located at <code>views/index/index.phtml</code></p>

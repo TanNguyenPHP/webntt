@@ -1,0 +1,109 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "albumForm",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Danh sách menu
+    </h2>
+</section>
+<section class="content">
+    <div class="sidebar-form">
+        <div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <input type="text" name="filter" id="filter" class="form-control" placeholder="Tên album..."
+                           value="<?php echo $data['filter'] ?>">
+                        <span class="input-group-btn">
+                            <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr style="background-color: #3c8dbc; color:#fff">
+                <th>Tên</th>
+                <th>Ngày tạo album</th>
+                <th>Hiển thị trang chủ</th>
+                <th>Xóa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data['albums'] as $item): ?>
+                <tr>
+                    <th scope="row" style="text-align:left">
+                        <a href="#"><?php echo $item->name ?></a>
+                    </th>
+                    <td style="text-align:left">
+                        <?php echo DateTime::createFromFormat('YmdHis', $item->datecreate)->format('d/m/Y'); ?>
+                    </td>
+                    <td style="text-align:left">
+                        <?php if ($item->is_website == '1')
+                            echo "<a id=\"is_active\" class=\"btn-active\" data-active=\"$item->id\" href=\"#\">Hiển thị</a>";
+                        else
+                            echo "<a id=\"is_active\" class=\"btn-active\" data-active=\"$item->id\" href=\"#\">Đóng</a>";
+                        ?>
+                    </td>
+                    <td align="center">
+                        <a class="delete-btn add-button-disable" href="#"
+                           onclick="FunctionDel('<?php echo $item->id ?>');"><i
+                                class="fa fa-times" id="icon-<?php echo $item->id ?>"></i></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section><!-- /.content -->
+<?php echo $this->tag->endForm(); ?>
+<script>
+    var is_loading = false;
+    $(document).ready(function () {
+        $('.btn-active').off('click').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            var id = link.data('active');
+            $.ajax({
+                url: '/backend/album/editstatus',
+                type: 'POST',
+                data: {id: id},
+                dataType: 'text',
+                success: function (result) {
+                    link.text(result);
+                }
+            });
+        });
+    });
+    function FunctionDel(id) {
+        var a = alertify.confirm('Xóa album này?', function (e) {
+            if (e) {
+                if (is_loading == false) {
+                    is_loading = true;
+                    var icon = '#icon-' + id;
+                    $.ajax({
+                        url: '/backend/album/del',
+                        type: 'POST',
+                        data: {id: id},
+                        dataType: 'text',
+                        success: function (result) {
+                            $(icon).attr("class", result);
+                            is_loading = false;
+                        }
+                    });
+                }
+            }
+        }).set('title', 'Thông Báo').show();
+    }
+</script>

@@ -1,0 +1,62 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "catform",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Danh mục bài viết
+    </h2>
+    <div class="arrange-button">
+        <a href="new" class="btn btn-info" id="modaltrigger" rel="leanModal">Thêm mới</a>
+    </div>
+</section>
+<section class="content">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr style="background-color: #3c8dbc; color:#fff">
+                <th>Tên danh mục</th>
+                <th>Mô tả</th>
+                <th>Danh mục cha</th>
+                <th>Tình trạng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data as $item): ?>
+                <tr>
+                    <th scope="row" style="text-align:left">
+                        <a href="edit/<?php echo $item['id'] ?>"><?php echo $item['name'] ?></a>
+                    </th>
+                    <td style="text-align:left">
+                        <?php echo $item['desc'] ?>
+                    </td>
+                    <td>
+                        <?php echo $item['pid'] ?>
+                    </td>
+                    <td>
+                        <?php if ($item['is_status'] == '0')
+                            echo 'Tắt';
+                        else
+                            echo 'Mở';
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>

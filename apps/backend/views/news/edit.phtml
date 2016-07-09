@@ -1,0 +1,187 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "/backend/news/save",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "id" => "saveNews",
+        "method" => "post",
+        "enctype" => "multipart/form-data"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Sửa bài viết</h2>
+    <div class="validation-summary-valid" data-valmsg-summary="true">
+        <ul>
+            <li style="display:none"></li>
+        </ul>
+    </div>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="cat">Danh mục bài viết</label>
+            <div class="col-md-6">
+                <select class="form-control" id="cat" name="cat">
+                    <?php foreach ($data["cats"] as $items): ?>
+                        <?php if ($data["news"]->id_category == $items->id)
+                            echo "<option value=\"$items->id\" selected>$items->name</option>";
+                        else
+                            echo "<option value=\"$items->id\">$items->name</option>";
+                        ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="cat">Chọn ngôn ngữ</label>
+            <div class="col-md-6">
+                <select class="form-control" id="lang" name="lang">
+                    <?php foreach ($data["langs"] as $items): ?>
+                        <?php if ($data["news"]->id_lang == $items->id)
+                            echo "<option value=\"$items->id\" selected>$items->lang</option>";
+                        else
+                            echo "<option value=\"$items->id\">$items->lang</option>";
+                        ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Name">Tiêu đề</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("title", "size" => 30, "class" => "form-control", "id" => "fieldTitle", "minlength" => "4", "maxlength" => "64", "value" => $data['news']->title)) ?>
+                <input type="hidden" id="id" name="id" value="<?php echo $data['news']->id ?>>"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="content_short">Tóm tắt bài viết</label>
+            <div class="col-md-6">
+                    <textarea class="form-control" cols="20" id="content_short" maxlength="256" name="content_short"
+                              rows="2"><?php echo $data['news']->content_short ?></textarea>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="content">Nội dung bài viết</label>
+            <div class="col-md-6">
+                    <textarea class="form-control" cols="20" id="content" minlength="6" maxlength="128" name="content"
+                              rows="20"><?php echo $data['news']->content ?></textarea>
+                <span id="messageContent" class="field-validation-valid" data-valmsg-for="Name"
+                      data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="content_short">Ảnh đại diện</label>
+            <div class="col-md-6">
+                <input type="file" id="avatar_image" name="avatar_image" accept="image/*">
+                <p id="pic_error2" style="display:none; color:#FF0000;">Kích thước ảnh không quá 2 MB.</p>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="position">Thứ tự hiển thị</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("position", "size" => 30, "class" => "form-control", "id" => "fieldposition", "maxlength" => "3", "value" => $data['news']->position)) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Show">Hiển thị</label>
+            <div class="col-md-6">
+                <?php
+                if ($data['news']->is_status == '1')
+                    echo $this->tag->checkField(array("is_status", "class" => "check-box", "value" => "1", "checked" => "checked"));
+                else
+                    echo $this->tag->checkField(array("is_status", "class" => "check-box", "value" => "0"));
+                ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="seo_title">Keyword Title</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("seo_title", "size" => 30, "class" => "form-control", "id" => "fieldSeo_title", "maxlength" => "48", "value" => $data['news']->seo_title)) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="seo_desc">Meta Description</label>
+            <div class="col-md-6">
+                <textarea class="form-control" cols="20" id="seo_desc" maxlength="128" name="seo_desc"
+                          rows="2"><?php echo $data['news']->seo_desc ?></textarea>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" id="submit" class="btn btn-info"/>
+            <a href="/backend/news/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    tinymce.init({
+        selector: '#content',
+        toolbar: "image",
+        plugins: "image imagetools",
+        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+    });
+    //tinymce.activeEditor.setContent(' html');
+
+    var a = 0;
+    var b = 0;
+    $('#avatar_image').bind('change', function () {
+        if ($('input:submit').attr('disabled', false)) {
+            $('input:submit').attr('disabled', true);
+        }
+        var ext = $('#avatar_image').val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+            $('#pic_error2').slideUp("slow");
+            a = 0;
+        } else {
+            var picsize = (this.files[0].size);
+            if (picsize > 2048000) {
+                $('#pic_error2').slideDown("slow");
+                a = 0;
+            } else {
+                a = 1;
+                $('#pic_error2').slideUp("slow");
+            }
+            if (a == 1 || b == 2) {
+                $('input:submit').attr('disabled', false);
+            }
+        }
+    });
+    $("form").submit(function () {
+        var editorContent = tinyMCE.get('content').getContent();
+        if (editorContent == '') {
+            $('#messageContent').html('Nhập nội dung');
+            return false;
+        }
+        return true;
+    });
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#createNews").validate({
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 4
+                },
+                position: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                title: {
+                    required: "Nhập tên",
+                    minlength: "Lớn hơn 4 ký tự"
+                },
+                position: {
+                    required: "Nhập thứ tự hiển thị",
+                    number: "Nhập số"
+                }
+            }
+        });
+    });
+
+</script>

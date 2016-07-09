@@ -1,20 +1,110 @@
+<?php
+use  Corephalcon\Commons\ParamsSEO as params;
+
+?>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Phalcon PHP Framework</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div class="container">
-            <?php echo $this->getContent(); ?>
+<head>
+    <meta charset="utf-8"/>
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width"/>
+    <!-- CSS Files-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <?php $this->assets->outputCss() ?>
+    <?php echo $this->tag->getTitle(); ?>
+    <meta name="description" content="<?php echo params::$meta_description ?>">
+    <script type="text/javascript" src="/js/jquery/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+<!-- HIDDEN PANEL 
+================================================== -->
+
+<!-- HEADER
+================================================== -->
+<div class="row">
+    <div class="headerlogo four columns">
+        <div class="logo">
+            <a href="/index">
+                <h4>Khoa KTKT</h4>
+            </a>
         </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    </body>
+    </div>
+    <div class="headermenu eight columns noleftmarg">
+        <nav id="nav-wrap">
+            <ul id="main-menu" class="nav-bar sf-menu">
+                <li class="current">
+                    <a href="/index">TRANG CHỦ</a>
+                </li>
+                <li>
+                    <a href="/about">GIỚI THIỆU</a>
+                </li>
+                <li>
+                    <a href="/news">TIN TỨC - SỰ KIỆN</a>
+                </li>
+                <li>
+                    <a href="/train">ĐÀO TẠO</a>
+                    <ul>
+                        <li><a href="#">ĐẠI HỌC</a></li>
+                        <li><a href="#">SAU ĐẠI HỌC</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/contact">LIÊN HỆ</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="clear">
+</div>
+<!-- SLIDER 
+================================================== -->
+<?php echo $this->getContent() ?>
+<!-- FOOOTER 
+================================================== -->
+<div id="footer">
+    <footer class="row">
+        <p class="back-top floatright">
+            <a href="#top"><span></span></a>
+        </p>
+        <div class="four columns">
+            <h1>Liên hệ</h1>
+            Khoa kế toán kiểm toán
+        </div>
+        <div class="four columns">
+            <h1>Mạng xã hội</h1>
+            <a class="social facebook" href="#"></a>
+            <a class="social twitter" href="#"></a>
+            <a class="social deviantart" href="#"></a>
+            <a class="social flickr" href="#"></a>
+            <a class="social dribbble" href="#"></a>
+        </div>
+        <div class="four columns">
+            <h1 class="newsmargin">Nhận thông báo</h1>
+            <div class="row collapse newsletter floatright">
+                <div class="ten mobile-three columns">
+                    <input type="text" class="nomargin" placeholder="Enter your e-mail address...">
+                </div>
+                <div class="two mobile-one columns">
+                    <a href="#" class="postfix button expand">GO</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<div class="copyright">
+    <div class="row">
+        <div class="six columns">
+            &copy;<span class="small"> Copyright Khoa Kế Toán Kiểm Toán - Trường đại học Nguyễn Tất Thành</span>
+        </div>
+        <div class="six columns">
+            <span class="small floatright">Design by <a target="_blank" href="#">NBTAN</a> </span>
+        </div>
+    </div>
+</div>
+<!-- JAVASCRIPTS 
+================================================== -->
+<!-- Javascript files placed here for faster loading -->
+<?php $this->assets->outputJs() ?>
+</body>
 </html>

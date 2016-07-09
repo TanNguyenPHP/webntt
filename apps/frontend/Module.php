@@ -22,7 +22,8 @@ class Module implements ModuleDefinitionInterface
 
         $loader->registerNamespaces(array(
             'Corephalcon\Frontend\Controllers' => __DIR__ . '/controllers/',
-            'Corephalcon\Frontend\Models' => __DIR__ . '/models/',
+            'Corephalcon\Modeldb\Models' => '../apps/modeldb/models/',
+            'Corephalcon\Commons' => '../apps/commons/'
         ));
 
         $loader->register();

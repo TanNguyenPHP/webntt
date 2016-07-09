@@ -1,0 +1,86 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "create",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "id" => "createCat"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Tạo mới danh mục bài viết</h2>
+    <div class="validation-summary-valid" data-valmsg-summary="true">
+        <ul>
+            <li style="display:none"></li>
+        </ul>
+    </div>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Name">Tên danh mục</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("name", "size" => 30, "class" => "form-control", "id" => "fieldName", "minlength" => "4", "maxlength" => "24")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Danh mục cha</label>
+            <div class="col-md-6">
+                <select class="form-control" id="pid" name="pid">
+                    <option value="0">Chọn danh mục</option>
+                    <?php foreach ($data as $items): ?>
+                        <?php echo "<option value=\"$items->id\">$items->name</option>" ?>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="title">Title</label>
+            <div class="col-md-6">
+                <input class="form-control valid" id="title" maxlength="32" name="title" type="text" value="">
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="meta_description">Meta description</label>
+            <div class="col-md-6">
+                    <textarea class="form-control" cols="20" id="meta_description" maxlength="128" name="meta_description"
+                              rows="2"></textarea>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Price">Mô tả</label>
+            <div class="col-md-6">
+                    <textarea class="form-control" cols="20" id="desc" maxlength="128" name="desc"
+                              rows="2"></textarea>
+                <span class="field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" class="btn btn-info"/>
+            <a href="/backend/language/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#createCat").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 4
+                }
+            },
+            messages: {
+                name: {
+                    required: "Nhập tên",
+                    minlength: "Lớn hơn 4 ký tự"
+                }
+            }
+        });
+    });
+</script>

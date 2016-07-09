@@ -1,0 +1,143 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "newsform",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Danh sách bài viết
+    </h2>
+    <div class="arrange-button">
+        <a href="new" class="btn btn-info" id="modaltrigger" rel="leanModal">Thêm mới</a>
+    </div>
+</section>
+<section class="content">
+    <div class="sidebar-form">
+        <div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <input type="text" name="filter" id="filter" class="form-control" placeholder="Tên bài viết..."
+                           value="<?php echo $data['filter'] ?>">
+                        <span class="input-group-btn">
+                            <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Danh mục bài viết</span>
+                    <select class="form-control" id="cat" name="cat">
+                        <option value="" selected>Tất cả</option>
+                        <?php foreach ($data["cats"] as $items): ?>
+                            <?php if ($items->id == $data['cat'])
+                                echo "<option value=\"$items->id\" selected>$items->name</option>";
+                            else
+                                echo "<option value=\"$items->id\">$items->name</option>";
+                            ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Từ ngày</span>
+                    <input class="form-control" type="text" name="DateFrom" id="DateFrom"/>
+                </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Đến ngày</span>
+                    <input class="form-control" type="text" name="DateTo" id="DateTo"/>
+                </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Hiển thị</span>
+                    <select class="form-control" name="limit" id="limit" onchange = "newsform.submit()">
+                        <?php for ($i=10; $i <= 50;$i = $i + 10){
+                            if($i == $data['limit'] )
+                                echo "<option value=\"$i\" selected>$i</option>";
+                            else
+                                echo "<option value=\"$i\">$i</option>";
+                        }?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr style="background-color: #3c8dbc; color:#fff">
+                <th>Tên bài viết</th>
+                <th>Danh mục</th>
+                <th>Ngày tạo</th>
+                <th>Tình trạng</th>
+                <th>Vị trí</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php for ($i = 0; $i < count($data['listnews']->items); $i++) { ?>
+                <tr>
+                    <th scope="row" style="text-align:left">
+                        <a href="edit/<?php echo $data['listnews']->items[$i]->id ?>"><?php echo $data['listnews']->items[$i]->title ?></a>
+                    </th>
+                    <td style="text-align:left">
+                        <?php for ($j = 0; $j < count($data['cats']); $j++) { ?>
+                            <?php if ($data['listnews']->items[$i]->id_category == $data['cats'][$j]->id) {
+                                echo $data['cats'][$j]->name;
+                            } ?>
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php
+                        if ($data['listnews']->items[$i]->datecreate != '')
+                            echo DateTime::createFromFormat('YmdHis', $data['listnews']->items[$i]->datecreate)->format('d/m/Y');
+                        ?>
+                    </td>
+                    <td align="center">
+                        <?php if ($data['listnews']->items[$i]->is_status == '1')
+                            echo '<input class="check-box" disabled="disabled" type="checkbox" checked>';
+                        else
+                            echo '<input class="check-box" disabled="disabled" type="checkbox">';
+                        ?>
+                    </td>
+                    <td>
+                        <?php echo $data['listnews']->items[$i]->position ?>
+                    </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+        <nav style="text-align:right">
+            <ul class="pagination">
+                <li><?php echo $this->tag->linkTo("/backend/news/index", "First") ?></li>
+                <li><?php echo $this->tag->linkTo("/backend/news/index?page=" . $data['listnews']->before, "Previous") ?></li>
+                <li><?php echo $this->tag->linkTo("/backend/news/index?page=" . $data['listnews']->next, "Next") ?></li>
+                <li><?php echo $this->tag->linkTo("/backend/news/index?page=" . $data['listnews']->last, "Last") ?></li>
+            </ul>
+        </nav>
+    </div>
+</section><!-- /.content -->
+<?php echo $this->tag->endForm(); ?>
+<script type="text/javascript">
+    $('#DateFrom').datetimepicker({
+        value: '<?php echo $data['dateFrom'] ?>', step: 1
+    });
+    $('#DateTo').datetimepicker({
+        value: '<?php echo $data['dateTo'] ?>', step: 1
+    });
+</script>

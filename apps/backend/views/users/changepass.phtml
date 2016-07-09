@@ -1,0 +1,72 @@
+<?php echo $this->getContent(); ?>
+<section class="content-header">
+    <h2>Th&#244;ng tin t&#224;i khoản</h2>
+</section>
+<section class="content">
+    <p class="text-success"></p>
+    <div class="arrage-popup">
+        <p>Tài khoản đăng nhập <strong>admin</strong>.</p>
+        <p><?php echo $this->flash->output() ?></p>
+        <form method="post" action="/backend/users/savepass" role="form" name="changepassword" id="changepassword">
+            <input name="__RequestVerificationToken" type="hidden"
+                   value=""/>
+            <div class="validation-summary-valid" data-valmsg-summary="true">
+                <ul>
+                    <li style="display:none"></li>
+                </ul>
+            </div>
+            <div class="arrange-div form-group col-md-12">
+                <label class="text-label col-md-2" for="OldPassword">Mật Khẩu Hiện Tại</label>
+                <div class="col-md-6">
+                    <input class="form-control" id="OldPassword"
+                           name="OldPassword" type="password" maxlength="32"/>
+                </div>
+            </div>
+            <div class="arrange-div form-group col-md-12">
+                <label class="text-label col-md-2" for="NewPassword">Mật Khẩu Mới</label>
+                <div class="col-md-6">
+                    <input class="form-control" data-val="true" id="NewPassword" name="NewPassword" type="password" maxlength="32" />
+                </div>
+            </div>
+            <div class="arrange-div form-group col-md-12">
+                <label class="text-label col-md-2" for="ConfirmPassword">Nhập Lại Mật Khẩu Mới</label>
+                <div class="col-md-6">
+                    <input class="form-control" id="ConfirmPassword" name="ConfirmPassword" type="password" maxlength="32"/>
+                </div>
+            </div>
+            <div style="text-align:center" class="col-md-12">
+                <input type="submit" value="Lưu" class="btn btn-info"/>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</section>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#changepassword").validate({
+            rules: {
+                OldPassword: {
+                    required: true,
+                    minlength: 6
+                },
+                ConfirmPassword: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#NewPassword"
+                }
+            },
+            messages: {
+                OldPassword: {
+                    required: "Điền tên đăng nhập",
+                    minlength: "Tên đăng nhập lớn hơn 5 ký tự"
+                },
+                ConfirmPassword: {
+                    required: "Nhập lại mật khẩu",
+                    minlength: "Mật khẩu phải lớn hơn 5 ký tự",
+                    equalTo: "Mật khậu nhập lại không đúng"
+                }
+            }
+        });
+    });
+</script>

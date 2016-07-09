@@ -1,0 +1,102 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php echo $this->getContent(); ?>
+<?php
+echo $this->tag->form(
+    array(
+        "/backend/webconfig/save",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name"=>"webConfig"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Cấu hình web</h2>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Lang">Thẻ Title</label>
+            <div class="col-md-6">
+                <input class="form-control" id="title" name="Tagtitle" type="text" value="<?php echo $data->title ?>" maxlength="64"/>
+                <input type="hidden" id="id" name="id" value="<?php echo $data->id_lang ?>>"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Thẻ Meta Description</label>
+            <div class="col-md-6">
+                <textarea class="form-control" cols="20" id="Tagmeta" maxlength="128" name="Tagmeta"
+                          rows="5"><?php echo $data->meta ?></textarea>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Tên Cty</label>
+            <div class="col-md-6">
+                <input class="form-control" id="company" name="company" type="text" value="<?php echo $data->companyname ?>" maxlength="128"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Email Cty</label>
+            <div class="col-md-6">
+                <input class="form-control" id="email" name="email" type="text" value="<?php echo $data->email ?>" maxlength="64"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Địa chỉ</label>
+            <div class="col-md-6">
+                <input class="form-control" id="address" name="address" type="text" value="<?php echo $data->address ?>" maxlength="128"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Điện thoại</label>
+            <div class="col-md-6">
+                <input class="form-control" id="cellphone" name="cellphone" type="text" value="<?php echo $data->cellphone ?>" maxlength="20"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Fax</label>
+            <div class="col-md-6">
+                <input class="form-control" id="fax" name="fax" type="text" value="<?php echo $data->fax ?>" maxlength="20"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Facebook</label>
+            <div class="col-md-6">
+                <input class="form-control" id="facebook" name="facebook" type="text" value="<?php echo $data->facebook ?>" maxlength="128"/>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" class="btn btn-info"/>
+            <a href="/backend/webconfig/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#webConfig").validate({
+            rules: {
+                Tagtitle: {
+                    required: true
+                },
+                email: {
+                    email: true
+                }
+            },
+            messages: {
+                Tagtitle: {
+                    required: "Nhập ngôn ngữ"
+                },
+                email: {
+                    email: "Không đúng định dạng email"
+                }
+            }
+        });
+    });
+</script>

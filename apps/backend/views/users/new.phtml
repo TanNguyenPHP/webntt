@@ -1,0 +1,101 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "create",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "id" => "createUser"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Tạo mới tài khoản.</h2>
+    <div class="validation-summary-valid" data-valmsg-summary="true">
+        <ul>
+            <li style="display:none"></li>
+        </ul>
+    </div>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="UserName">Tên đăng nhập</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("username", "size" => 30, "class" => "form-control", "id" => "fieldUsername","minlength" => "5", "maxlength" => "64")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="FullName">Tên người dùng</label>
+            <div class="col-md-6">
+                <input class="form-control valid" id="name" maxlength="32" name="name" type="text" value="">
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Password">Mật khẩu</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->passwordField(array("password", "size" => 30, "class" => "form-control", "id" => "fieldPassword","minlength" => "5" ,"maxlength" => "64")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="ConfirmPassword">Nhập lại mật khẩu</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->passwordField(array("ComfirmPassword", "size" => 30, "class" => "form-control", "id" => "fieldComfirmPassword","minlength" => "5", "maxlength" => "64")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Email">Email</label>
+            <div class="col-md-6">
+                <input class="form-control" id="email" maxlength="64" name="email" type="text" value=""/>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Đăng Ký" class="btn btn-info"/>
+            <a href="/webdinhdalat/backend/users/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#createUser").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 6
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                ComfirmPassword: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#fieldPassword"
+                },
+                email: {
+
+                    email: true
+                }
+            },
+            messages: {
+                username: {
+                    required: "Điền tên đăng nhập",
+                    minlength: "Tên đăng nhập lớn hơn 5 ký tự"
+                },
+                password: {
+                    required: "Nhập mật khẩu",
+                    minlength: "Mật khẩu phải lớn hơn 5 ký tự"
+                },
+                ComfirmPassword: {
+                    required: "Nhập lại mật khẩu",
+                    minlength: "Mật khẩu phải lớn hơn 5 ký tự",
+                    equalTo: "Mật khậu nhập lại không đúng"
+                },
+                email: "Không đúng định dạng email"
+            }
+        });
+    });
+</script>

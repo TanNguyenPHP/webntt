@@ -1,0 +1,60 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "create",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "id" => "createLang"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Tạo mới ngôn ngữ</h2>
+    <div class="validation-summary-valid" data-valmsg-summary="true">
+        <ul>
+            <li style="display:none"></li>
+        </ul>
+    </div>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Lang">Ngôn ngữ</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("lang", "size" => 30, "class" => "form-control", "id" => "fieldLang","minlength" => "4", "maxlength" => "16")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Mã ngôn ngữ</label>
+            <div class="col-md-6">
+                <input class="form-control valid" id="code" maxlength="8" minlength="1" name="code" type="text" value="">
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" class="btn btn-info"/>
+            <a href="/webdinhdalat/backend/language/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#createLang").validate({
+            rules: {
+                lang: {
+                    required: true,
+                    minlength: 4
+                }
+            },
+            messages: {
+                lang: {
+                    required: "Nhập ngôn ngữ",
+                    minlength: "Lớn hơn 4 ký tự"
+                }
+            }
+        });
+    });
+</script>

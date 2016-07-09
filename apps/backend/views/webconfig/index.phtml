@@ -1,0 +1,28 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "webconfigform",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Cấu hình hệ thống
+    </h2>
+    <div class="arrange-button">
+        <a href="/backend/menu/index" class="btn btn-info" id="modaltrigger" rel="leanModal">Cấu hình menu</a>
+        <?php foreach($data as $item) {
+            echo "<a href=\"/backend/webconfig/edit/".$item['id_lang']."\" class=\"btn btn-info\" id=\"modaltrigger\" rel=\"leanModal\">".$item['lang']."</a>";
+        } ?>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>

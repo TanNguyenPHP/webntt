@@ -1,0 +1,58 @@
+<?php echo $this->getContent() ?>
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php
+echo $this->tag->form(
+    array(
+        "index",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "name" => "langform",
+        "method" => "get"
+    )
+);
+?>
+<section class="content-header">
+    <h2>
+        Danh sách ngôn ngữ
+    </h2>
+    <div class="arrange-button">
+        <a href="new" class="btn btn-info" id="modaltrigger" rel="leanModal">Thêm mới</a>
+    </div>
+</section>
+<section class="content">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr style="background-color: #3c8dbc; color:#fff">
+                <th>Ngôn ngữ</th>
+                <th>Mã</th>
+                <th>Tình trạng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($data as $item): ?>
+                <tr>
+                    <th scope="row" style="text-align:left">
+                        <a href="edit/<?php echo $item->id ?>"><?php echo $item->lang ?></a>
+                    </th>
+                    <td style="text-align:left">
+                        <?php echo $item->code ?>
+                    </td>
+                    <td>
+                        <?php if ($item->is_status == '0')
+                            echo 'Tắt';
+                        else
+                            echo 'Mở';
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section><!-- /.content -->
+<?php echo $this->tag->endForm(); ?>

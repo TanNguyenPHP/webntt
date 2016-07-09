@@ -1,0 +1,68 @@
+<?php echo $this->getContent() ?>
+<?php
+echo $this->tag->form(
+    array(
+        "create",
+        "autocomplete" => "off",
+        "class" => "form-horizontal",
+        "id" => "createCat"
+    )
+);
+?>
+<section class="content-header">
+    <h2>Tạo mới album</h2>
+    <div class="validation-summary-valid" data-valmsg-summary="true">
+        <ul>
+            <li style="display:none"></li>
+        </ul>
+    </div>
+</section>
+<section class="content">
+    <div class="arrage-popup">
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Name">Tên album</label>
+            <div class="col-md-6">
+                <?php echo $this->tag->textField(array("name", "size" => 30, "class" => "form-control", "id" => "fieldName", "minlength" => "4", "maxlength" => "36")) ?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Price">Hiển thị ngoài website</label>
+            <div class="col-md-6">
+              <?php echo $this->tag->checkField(array("website", "class" => "check-box"));?>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Price">Mô tả</label>
+            <div class="col-md-6">
+                    <textarea class="form-control" cols="20" id="desc" maxlength="128" name="desc"
+                              rows="2"></textarea>
+                <span class="field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div style="text-align:center" class="col-md-12">
+            <input type="submit" value="Lưu" class="btn btn-info"/>
+            <a href="/backend/album/index" class="btn btn-info">Về danh sách</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>
+<?php echo $this->tag->endForm(); ?>
+<script>
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#createCat").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 4
+                }
+            },
+            messages: {
+                name: {
+                    required: "Nhập tên",
+                    minlength: "Lớn hơn 4 ký tự"
+                }
+            }
+        });
+    });
+</script>
