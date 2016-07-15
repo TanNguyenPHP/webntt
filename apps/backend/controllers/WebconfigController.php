@@ -15,7 +15,7 @@ class WebconfigController extends ControllerBase
 {
     public function indexAction()
     {
-        $data = Webconfig::findall('');
+        $data = Webconfig::findAll('1');
         return $this->view->data = $data;
     }
 
@@ -53,6 +53,7 @@ class WebconfigController extends ControllerBase
         $config->companyname = $this->request->getPost("company");
         $config->cellphone = $this->request->getPost("cellphone");
         $config->email = $this->request->getPost("email");
+        $config->forum = $this->request->getPost("forum");
         if (!$config->save()) {
 
             foreach ($config->getMessages() as $message) {

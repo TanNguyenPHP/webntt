@@ -1,77 +1,45 @@
 <?php
-
 namespace Corephalcon\Modeldb\Models;
 use Phalcon\Mvc\Model;
-class Webconfig extends Model
+class Sliderpic extends Model
 {
-
-    /**
-     *
-     * @var string
-     */
-    public $title;
-
-    /**
-     *
-     * @var string
-     */
-    public $meta;
-
-    /**
-     *
-     * @var string
-     */
-    public $email;
-
-    /**
-     *
-     * @var string
-     */
-    public $address;
-
-    /**
-     *
-     * @var string
-     */
-    public $cellphone;
-
-    /**
-     *
-     * @var string
-     */
-    public $companyname;
 
     /**
      *
      * @var integer
      */
-    public $id_lang;
+    public $id;
 
     /**
      *
      * @var string
      */
-    public $fax;
+    public $name;
 
     /**
      *
      * @var string
      */
-    public $facebook;
+    public $dir;
 
     /**
      *
      * @var string
      */
-    public $google;
+    public $desc;
 
     /**
      *
      * @var string
      */
-    public $twitter;
-    public $forum;
+    public $position;
 
+    /**
+     *
+     * @var string
+     */
+    public $is_show;
+    public $is_del;
     /**
      * Returns table name mapped in the model.
      *
@@ -79,28 +47,28 @@ class Webconfig extends Model
      */
     public function getSource()
     {
-        return 'webconfig';
+        return 'sliderpic';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Webconfig[]
+     * @return Sliderpic[]
      */
     public static function find($parameters = null)
     {
         return parent::find($parameters);
     }
-    public static function findAll($id_lang="")
+    public static function findAll()
     {
-        return parent::find("id_lang = '$id_lang'");
+        return parent::find("is_del = '0' ");
     }
     /**
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Webconfig
+     * @return Sliderpic
      */
     public static function findFirst($parameters = null)
     {

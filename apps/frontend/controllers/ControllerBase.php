@@ -4,6 +4,7 @@ namespace Corephalcon\Frontend\Controllers;
 
 use Phalcon\Mvc\Controller;
 use Corephalcon\Commons\ParamsSEO;
+use Corephalcon\Modeldb\Models\Webconfig;
 
 class ControllerBase extends Controller
 {
@@ -32,8 +33,11 @@ class ControllerBase extends Controller
             ->addJs('/javascripts/responsivemenu.js')
             ->addJs('/js/jquery/jquery.validate.min.js');
 
-        $this->tag->setTitle("Trường đại học Nguyễn Tất Thành");
-        self::setMetaDescription("Test he thống");
+        $data = Webconfig::findAll('1');
+        $this->tag->setTitle($data[0]->title);
+        self::setMetaDescription($data[0]->meta);
+        return $this->view->config=$data;
+
     }
     protected function setMetaDescription($content)
     {

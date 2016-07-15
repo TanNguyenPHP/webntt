@@ -34,7 +34,13 @@ echo $this->tag->form(
             </div>
         </div>
         <div class="arrange-div form-group col-md-12">
-            <label class="text-label col-md-2" for="Code">Tên Cty</label>
+            <label class="text-label col-md-2" for="Code">Link diễn đàn</label>
+            <div class="col-md-6">
+                <input class="form-control" id="forum" name="forum" type="text" value="<?php echo $data->forum ?>" maxlength="512"/>
+            </div>
+        </div>
+        <div class="arrange-div form-group col-md-12">
+            <label class="text-label col-md-2" for="Code">Tên Trường</label>
             <div class="col-md-6">
                 <input class="form-control" id="company" name="company" type="text" value="<?php echo $data->companyname ?>" maxlength="128"/>
             </div>
@@ -91,7 +97,7 @@ echo $this->tag->form(
             },
             messages: {
                 Tagtitle: {
-                    required: "Nhập ngôn ngữ"
+                    required: "Nhập title"
                 },
                 email: {
                     email: "Không đúng định dạng email"

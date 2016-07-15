@@ -19,9 +19,8 @@ echo $this->tag->form(
         Cấu hình hệ thống
     </h2>
     <div class="arrange-button">
-        <a href="/backend/menu/index" class="btn btn-info" id="modaltrigger" rel="leanModal">Cấu hình menu</a>
         <?php foreach($data as $item) {
-            echo "<a href=\"/backend/webconfig/edit/".$item['id_lang']."\" class=\"btn btn-info\" id=\"modaltrigger\" rel=\"leanModal\">".$item['lang']."</a>";
+            echo "<a href=\"/backend/webconfig/edit/".$item->id_lang."\" class=\"btn btn-info\" id=\"modaltrigger\" rel=\"leanModal\">Cấu hình hệ thống</a>";
         } ?>
     </div>
 </section>

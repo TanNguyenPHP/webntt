@@ -7,12 +7,13 @@ use  Corephalcon\Commons\ParamsSEO as params;
     <meta charset="utf-8"/>
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width"/>
+    <?php echo $this->tag->getTitle(); ?>
+    <meta name="description" content="<?php echo params::$meta_description ?>">
     <!-- CSS Files-->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic' rel='stylesheet'
           type='text/css'>
     <?php $this->assets->outputCss() ?>
-    <?php echo $this->tag->getTitle(); ?>
-    <meta name="description" content="<?php echo params::$meta_description ?>">
+
     <script type="text/javascript" src="/js/jquery/jquery-1.12.4.min.js"></script>
 </head>
 <body>
@@ -49,6 +50,9 @@ use  Corephalcon\Commons\ParamsSEO as params;
                     </ul>
                 </li>
                 <li>
+                    <a href="/<?php echo $config[0]->forum ?>">DIỄN ĐÀN</a>
+                </li>
+                <li>
                     <a href="/contact">LIÊN HỆ</a>
                 </li>
             </ul>
@@ -69,11 +73,15 @@ use  Corephalcon\Commons\ParamsSEO as params;
         </p>
         <div class="four columns">
             <h1>Liên hệ</h1>
-            Khoa kế toán kiểm toán
+            <?php echo $config[0]->companyname ?>
+            <br>
+            Địa chỉ:<?php echo $config[0]->address ?>
+            <br>
+            Điện thoại:<?php echo $config[0]->cellphone ?>
         </div>
         <div class="four columns">
             <h1>Mạng xã hội</h1>
-            <a class="social facebook" href="#"></a>
+            <a class="social facebook" href="<?php echo $config[0]->facebook ?>"></a>
             <a class="social twitter" href="#"></a>
             <a class="social deviantart" href="#"></a>
             <a class="social flickr" href="#"></a>
